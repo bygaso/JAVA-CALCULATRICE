@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculatrice</title>
+    <style>
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Calculatrice</h2>
+
+    <form id="calculatorForm">
+        <label for="num1">Nombre 1:</label>
+        <input type="text" id="num1" name="num1" required pattern="[0-9]+">
+
+        <label for="num2">Nombre 2:</label>
+        <input type="text" id="num2" name="num2" required pattern="[0-9]+" oninput="validateInput()">
+
+        <button type="button" onclick="calculate()">Calculer</button>
+    </form>
+
+    <h3>Résultats :</h3>
+    <p id="sumResult">Somme : </p>
+    <p id="productResult">Multiplication : </p>
+    <p id="divisionResult">Division : </p>
+    <p id="subtractionResult">Soustraction : </p>
+
+    <script>
+        function validateInput() {
+            const num2Input = document.getElementById('num2');
+            const num2Value = num2Input.value;
+
+            // Vérifier si la valeur est un nombre et éviter la division par 0
+            if (!isNaN(num2Value) && parseFloat(num2Value) !== 0) {
+                num2Input.setCustomValidity('');
+            } else {
+                num2Input.setCustomValidity('Le deuxième nombre doit être différent de zéro.');
+            }
+        }
+
+        function calculate() {
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+
+            if (!isNaN(num1) && !isNaN(num2)) {
+                document.getElementById('sumResult').textContent = 'Somme : ' + (num1 + num2);
+                document.getElementById('productResult').textContent = 'Multiplication : ' + (num1 * num2);
+                document.getElementById('divisionResult').textContent = 'Division : ' + (num1 / num2);
+                document.getElementById('subtractionResult').textContent = 'Soustraction : ' + (num1 - num2);
+            } else {
+                alert('Veuillez saisir des nombres valides.');
+            }
+        }
+    </script>
+
+</body>
+</html>
